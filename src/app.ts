@@ -1,6 +1,6 @@
 import Fastify from "fastify";
 import routes from "./routes";
-import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
+import { type TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
 
 export async function buildApp() {
   const app = Fastify({
