@@ -3,7 +3,6 @@ import {
   type FastifyPluginAsyncTypebox,
 } from "@fastify/type-provider-typebox";
 import { ChatSchema } from "@/schemas/chat";
-import { chatService } from "@/containers";
 
 const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
   fastify.get(
@@ -22,7 +21,7 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
       },
     },
     async function (request, reply) {
-      const chat = chatService.getChatById(request.params.id);
+      const chat = await fastify.chatService.getChatById(request.params.id);
 
       if (!chat) {
         return reply.status(404).send({

@@ -1,6 +1,5 @@
 import { type FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
 import { CreateChatSuccessSchema } from "@/schemas/chat";
-import { chatService } from "@/containers";
 
 const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
   fastify.post(
@@ -13,7 +12,7 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
       },
     },
     async function (_, reply) {
-      const chat = chatService.createChat();
+      const chat = await fastify.chatService.createChat();
 
       return reply.status(201).send({ status: "Chat created", chat });
     },

@@ -1,14 +1,14 @@
-import { ChatRepository } from "@/repository/chat.repository";
+import { ChatRepository } from "@/repositories/chat.repository";
 import { type Chat } from "@/schemas/chat";
 
 export class ChatService {
   constructor(private repository: ChatRepository) {}
 
-  createChat(): Chat {
+  async createChat(): Promise<Chat> {
     return this.repository.create();
   }
 
-  getChatById(id: string): Chat | undefined {
+  async getChatById(id: string): Promise<Chat | undefined> {
     return this.repository.findById(id);
   }
 }
