@@ -8,11 +8,11 @@ export async function buildApp() {
     // logger: true,
   }).withTypeProvider<TypeBoxTypeProvider>();
 
-  app.register(routes);
-
   app.register(postgres, {
     connectionString: process.env.DATABASE_URL,
   });
+
+  app.register(routes);
 
   return app;
 }
