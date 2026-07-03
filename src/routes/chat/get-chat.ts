@@ -14,7 +14,7 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
         }),
         response: {
           200: ChatSchema,
-          "4xx": Type.Object({
+          404: Type.Object({
             message: Type.String(),
           }),
         },
