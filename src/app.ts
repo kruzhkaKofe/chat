@@ -2,6 +2,9 @@ import Fastify from "fastify";
 import routes from "./routes";
 import { type TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
 import postgres from "@fastify/postgres";
+import { types } from "pg";
+
+types.setTypeParser(20, (val) => Number(val));
 
 export async function buildApp() {
   const app = Fastify({
@@ -12,7 +15,7 @@ export async function buildApp() {
     connectionString: process.env.DATABASE_URL,
   });
 
-  app.register(routes);
+  app.register(routes, { prefix: "/v1" });
 
   return app;
 }
