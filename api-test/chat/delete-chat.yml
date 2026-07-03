@@ -1,15 +1,11 @@
 info:
-  name: get-chat
+  name: delete-chat
   type: http
-  seq: 2
+  seq: 3
 
 http:
-  method: GET
+  method: DELETE
   url: "{{BASE_URL}}/chat/{{id}}"
-  params:
-    - name: ""
-      value: ""
-      type: query
   auth: inherit
 
 runtime:
