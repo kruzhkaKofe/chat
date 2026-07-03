@@ -1,6 +1,6 @@
 import { type FastifyInstance } from "fastify";
 import { type Chat } from "@/schemas/chat";
-import { randomUUID } from "crypto";
+import { type QueryResult } from "pg";
 
 export class ChatRepository {
   constructor(private fastify: FastifyInstance) {}
@@ -10,7 +10,7 @@ export class ChatRepository {
       `INSERT INTO chats (name, created_date)
        VALUES ($1, $2)
        RETURNING id, name, created_date AS "createdDate"`,
-      [`${randomUUID()}`, Date.now()],
+      ["", Date.now()],
     );
     return rows[0];
   }
@@ -21,5 +21,14 @@ export class ChatRepository {
       [id],
     );
     return rows[0];
+  }
+
+  async delete(id: string): Promise<boolean> {
+    const result: QueryResult = await this.fastify.pg.query(
+      `DELETE FROM chats WHERE id = $1`,
+      [id],
+    );
+
+    return (result.rowCount ?? 0) > 0;
   }
 }
